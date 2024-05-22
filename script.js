@@ -1,22 +1,95 @@
 const cards = [
-  { id: 1, src: "/assets/adrian.webp" },
-  { id: 2, src: "/assets/darek.webp" },
-  { id: 3, src: "/assets/klaudia.webp" },
-  { id: 4, src: "/assets/mati.webp" },
-  { id: 5, src: "/assets/paniMarzenka.webp" },
-  { id: 6, src: "/assets/panJacek.webp" },
-  { id: 7, src: "/assets/panMaciek.webp" },
-  { id: 8, src: "/assets/tomek.webp" },
-  { id: 9, src: "/assets/adrian.webp" },
-  { id: 10, src: "/assets/darek.webp" },
-  { id: 11, src: "/assets/klaudia.webp" },
-  { id: 12, src: "/assets/mati.webp" },
-  { id: 13, src: "/assets/paniMarzenka.webp" },
-  { id: 14, src: "/assets/panJacek.webp" },
-  { id: 15, src: "/assets/panMaciek.webp" },
-  { id: 16, src: "/assets/tomek.webp" },
+  { id: 1, src: "/assets/adrian.webp", class: "back" },
+  { id: 2, src: "/assets/darek.webp", class: "back" },
+  { id: 3, src: "/assets/klaudia.webp", class: "back" },
+  { id: 4, src: "/assets/mati.webp", class: "back" },
+  { id: 5, src: "/assets/paniMarzenka.webp", class: "back" },
+  { id: 6, src: "/assets/panJacek.webp", class: "back" },
+  { id: 7, src: "/assets/panMaciek.webp", class: "back" },
+  { id: 8, src: "/assets/tomek.webp", class: "back" },
+  { id: 9, src: "/assets/adrian.webp", class: "back" },
+  { id: 10, src: "/assets/darek.webp", class: "back" },
+  { id: 11, src: "/assets/klaudia.webp", class: "back" },
+  { id: 12, src: "/assets/mati.webp", class: "back" },
+  { id: 13, src: "/assets/paniMarzenka.webp", class: "back" },
+  { id: 14, src: "/assets/panJacek.webp", class: "back" },
+  { id: 15, src: "/assets/panMaciek.webp", class: "back" },
+  { id: 16, src: "/assets/tomek.webp", class: "back" },
 ];
+
+const board_game = document.querySelector("#board_game");
+let flippedCards = [];
+let matchedPairs = 0;
 
 function shuffle(array) {
   return array.sort(() => 0.5 - Math.random());
+}
+
+function genCards() {
+  win = 0;
+  shuffle(cards);
+  restart();
+  for (let card of cards) {
+    const cardEl = document.createElement("div");
+    cardEl.classList.add("card");
+    cardEl.dataset.id = card.id;
+    cardEl.dataset.src = card.src;
+    cardEl.innerHTML = `
+        <div class="front">
+          <img class="close-card ${card.class}" src="${card.src}" />
+        </div>
+        <div class="back"></div>
+      `;
+    board_game.appendChild(cardEl);
+    cardEl.addEventListener("click", cardFlip);
+  }
+}
+genCards();
+
+function cardFlip(event) {
+  console.log(flippedCards.length);
+  const clickedCard = event.currentTarget;
+
+  if (clickedCard.classList.contains("flipped") || flippedCards.length === 2) {
+    return;
+  }
+  clickedCard.classList.add("flipped");
+  flippedCards.push(clickedCard);
+
+  if (flippedCards.length === 2) {
+    const flippedCard1 = flippedCards[0].dataset.src;
+    const flippedCard2 = flippedCards[1].dataset.src;
+
+    if (flippedCard1 === flippedCard2) {
+      const message = document.querySelector("#alert");
+      message.style.display = "flex";
+      message.style.animation = "none";
+      matchedPairs++;
+      message.innerHTML = "Połączone pary  " + `<p>${matchedPairs}</p>`;
+
+      if (matchedPairs === cards.length / 2) {
+        win += 1;
+        const alert = document.querySelector("#alert");
+        alert.style.display = "flex";
+        alert.style.animation = "1s pulse infinite";
+        alert.innerHTML = "Wygrana!";
+      }
+    } else {
+      setTimeout(() => {
+        flippedCards[0].classList.remove("flipped");
+        flippedCards[1].classList.remove("flipped");
+      }, 2000);
+    }
+    flippedCards = [];
+  }
+}
+
+function restart() {
+  const button = document.querySelector("button");
+  const alert = document.querySelector("#alert");
+  alert.innerHTML = "";
+  board_game.innerHTML = "";
+  button.addEventListener("click", genCards);
+  flippedCards = [];
+  matchedPairs = 0;
 }

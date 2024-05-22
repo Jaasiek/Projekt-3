@@ -42,6 +42,17 @@ img:hover {
   box-shadow: 0px 0px 15px 10px rgb(242, 4, 135);
 }
 
+.card.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.card.flipped .back {
+  transform: rotateY(0deg);
+}
+
+.card .back {
+  background-color: black;
+}
 div#button {
   display: flex;
   justify-content: center;
@@ -67,6 +78,43 @@ button > p {
 
 button:hover {
   color: white;
-  transition: 0.3s;
+  transition: 0.1s;
   scale: 1.1;
+}
+
+button:active {
+  background-color: white;
+  color: black;
+  scale: 0.9;
+}
+
+div#alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-transform: uppercase;
+  font-size: 25px;
+  margin-top: 30px;
+  animation: 1s pulse infinite;
+  gap: 10px;
+}
+
+div#alert > p {
+  color: white;
+  animation: 1s pulse infinite;
+  font-size: 30px;
+  margin: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

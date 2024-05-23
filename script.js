@@ -1,20 +1,20 @@
 const cards = [
-  { id: 1, src: "/assets/adrian.webp", class: "back" },
-  { id: 2, src: "/assets/darek.webp", class: "back" },
-  { id: 3, src: "/assets/klaudia.webp", class: "back" },
-  { id: 4, src: "/assets/mati.webp", class: "back" },
-  { id: 5, src: "/assets/paniMarzenka.webp", class: "back" },
-  { id: 6, src: "/assets/panJacek.webp", class: "back" },
-  { id: 7, src: "/assets/panMaciek.webp", class: "back" },
-  { id: 8, src: "/assets/tomek.webp", class: "back" },
-  { id: 9, src: "/assets/adrian.webp", class: "back" },
-  { id: 10, src: "/assets/darek.webp", class: "back" },
-  { id: 11, src: "/assets/klaudia.webp", class: "back" },
-  { id: 12, src: "/assets/mati.webp", class: "back" },
-  { id: 13, src: "/assets/paniMarzenka.webp", class: "back" },
-  { id: 14, src: "/assets/panJacek.webp", class: "back" },
-  { id: 15, src: "/assets/panMaciek.webp", class: "back" },
-  { id: 16, src: "/assets/tomek.webp", class: "back" },
+  { id: 1, src: "/assets/adrian.webp", class: "front" },
+  { id: 2, src: "/assets/darek.webp", class: "front" },
+  { id: 3, src: "/assets/klaudia.webp", class: "front" },
+  { id: 4, src: "/assets/mati.webp", class: "front" },
+  { id: 5, src: "/assets/paniMarzenka.webp", class: "front" },
+  { id: 6, src: "/assets/panJacek.webp", class: "front" },
+  { id: 7, src: "/assets/panMaciek.webp", class: "front" },
+  { id: 8, src: "/assets/tomek.webp", class: "front" },
+  { id: 9, src: "/assets/adrian.webp", class: "front" },
+  { id: 10, src: "/assets/darek.webp", class: "front" },
+  { id: 11, src: "/assets/klaudia.webp", class: "front" },
+  { id: 12, src: "/assets/mati.webp", class: "front" },
+  { id: 13, src: "/assets/paniMarzenka.webp", class: "front" },
+  { id: 14, src: "/assets/panJacek.webp", class: "front" },
+  { id: 15, src: "/assets/panMaciek.webp", class: "front" },
+  { id: 16, src: "/assets/tomek.webp", class: "front" },
 ];
 
 const board_game = document.querySelector("#board_game");
@@ -36,7 +36,7 @@ function genCards() {
     cardEl.dataset.src = card.src;
     cardEl.innerHTML = `
         <div class="front">
-          <img class="close-card ${card.class}" src="${card.src}" />
+          <img class="close-card " src="${card.src}" />
         </div>
         <div class="back"></div>
       `;
@@ -59,7 +59,8 @@ function cardFlip(event) {
   if (flippedCards.length === 2) {
     const flippedCard1 = flippedCards[0].dataset.src;
     const flippedCard2 = flippedCards[1].dataset.src;
-
+    console.log(flippedCards[0].classList);
+    console.log(flippedCard2);
     if (flippedCard1 === flippedCard2) {
       const message = document.querySelector("#alert");
       message.style.display = "flex";
@@ -68,7 +69,6 @@ function cardFlip(event) {
       message.innerHTML = "Połączone pary  " + `<p>${matchedPairs}</p>`;
 
       if (matchedPairs === cards.length / 2) {
-        win += 1;
         const alert = document.querySelector("#alert");
         alert.style.display = "flex";
         alert.style.animation = "1s pulse infinite";

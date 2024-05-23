@@ -9,6 +9,7 @@ body {
   background-color: rgb(56, 19, 194);
   font-family: "Kanit", sans-serif;
 }
+
 h1 {
   text-align: center;
   color: white;
@@ -23,11 +24,13 @@ div#board_game {
   align-items: center;
   flex-wrap: wrap;
   width: 680px;
+  height: 460px;
   gap: 20px;
   padding: 50px;
   border-radius: 50px;
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 
 img {
@@ -36,23 +39,48 @@ img {
   border-radius: 25px;
 }
 
-img:hover {
+div.back:hover {
   transition: 0.2s;
-  scale: 1.05;
+  transform: scale(1.05);
   box-shadow: 0px 0px 15px 10px rgb(242, 4, 135);
 }
 
-.card.flipped .front {
+.card {
+  position: relative;
+  width: 150px;
+  height: 100px;
+  /* perspective: 1000px; */
+}
+
+.card .front,
+.card .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 25px;
+  transition: transform 0.6s;
+}
+
+.card .front {
   transform: rotateY(180deg);
 }
 
-.card.flipped .back {
+.card.flipped .front {
   transform: rotateY(0deg);
 }
 
 .card .back {
-  background-color: black;
+  background-image: url("/assets/1.-Okladka-Co-wyroznia-Techni-Schools_uid_6425f082eb1ed.jpeg");
+  background-size: cover;
+  background-position: center;
+  transform: rotateY(0deg);
 }
+
+.card.flipped .back {
+  transform: rotateY(180deg);
+}
+
 div#button {
   display: flex;
   justify-content: center;
@@ -79,13 +107,13 @@ button > p {
 button:hover {
   color: white;
   transition: 0.1s;
-  scale: 1.1;
+  transform: scale(1.1);
 }
 
 button:active {
   background-color: white;
   color: black;
-  scale: 0.9;
+  transform: scale(0.9);
 }
 
 div#alert {

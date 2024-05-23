@@ -59,8 +59,7 @@ function cardFlip(event) {
   if (flippedCards.length === 2) {
     const flippedCard1 = flippedCards[0].dataset.src;
     const flippedCard2 = flippedCards[1].dataset.src;
-    console.log(flippedCards[0].classList);
-    console.log(flippedCard2);
+
     if (flippedCard1 === flippedCard2) {
       const message = document.querySelector("#alert");
       message.style.display = "flex";
@@ -75,11 +74,14 @@ function cardFlip(event) {
         alert.innerHTML = "Wygrana!";
       }
     } else {
+      console.log(flippedCards[0].classList);
+      console.log(flippedCards[1].classList);
       setTimeout(() => {
         flippedCards[0].classList.remove("flipped");
         flippedCards[1].classList.remove("flipped");
       }, 2000);
     }
+
     flippedCards = [];
   }
 }

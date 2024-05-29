@@ -68,7 +68,6 @@ function cardFlip(event) {
       message.innerHTML = "Połączone pary  " + `<p>${matchedPairs}</p>`;
       console.log(flippedCards);
       flippedCards = [];
-
       if (matchedPairs === cards.length / 2) {
         const alert = document.querySelector("#alert");
         alert.style.display = "flex";
